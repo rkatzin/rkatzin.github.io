@@ -20,8 +20,8 @@ var LDAvis = function(to_select, data_or_file_name, color1, color2) {
             element: undefined
         },
         vis_state = {
-            lambda: 0.6,
-            topic: 1,
+            lambda: 1,
+            topic: 0,
             term: ""
         };
 
@@ -575,18 +575,9 @@ var LDAvis = function(to_select, data_or_file_name, color1, color2) {
             .tickSize(0)
             .ticks(6);
 
-        chart.append("g")
-          .attr("x", "xaxis")
-          .call(xAxis);
-
-        document.getElementById(topicID).value = vis_state.topic;
-        if (vis_state.topic > 0) {
-            topic_on(document.getElementById(topicID + vis_state.topic));
-            }
-        if (vis_state.lambda < 1 && vis_state.topic > 0) {
-            reorder_bars(false);
-            }
-        lambda.current = vis_state.lambda;
+//        chart.append("g")
+//          .attr("x", "xaxis")
+//          .call(xAxis);
 
         // dynamically create the topic and lambda input forms at the top of the page:
         function init_forms(topicID, lambdaID, visID) {
@@ -891,7 +882,7 @@ var LDAvis = function(to_select, data_or_file_name, color1, color2) {
                     .remove();
                 // https://github.com/mbostock/d3/wiki/Transitions#wiki-d3_ease
                 newaxis.transition().duration(duration)
-                    .call(xAxis)
+//                    .call(xAxis)
                     .transition().duration(duration);
             } else {
                 graybarsEnter
@@ -963,8 +954,8 @@ var LDAvis = function(to_select, data_or_file_name, color1, color2) {
 
                 // https://github.com/mbostock/d3/wiki/Transitions#wiki-d3_ease
                 newaxis.transition().duration(duration)
-                    .transition().duration(duration)
-                    .call(xAxis);
+                    .transition().duration(duration);
+//                    .call(xAxis);
             }
         }
 
@@ -1085,8 +1076,8 @@ var LDAvis = function(to_select, data_or_file_name, color1, color2) {
                 .ticks(6);
 
             // redraw x-axis
-            d3.selectAll(to_select + " .xaxis")
-                .call(xAxis);
+//            d3.selectAll(to_select + " .xaxis")
+//                .call(xAxis);
         }
 
 
@@ -1157,9 +1148,9 @@ var LDAvis = function(to_select, data_or_file_name, color1, color2) {
                 .ticks(6);
 
             // redraw x-axis
-            d3.selectAll(to_select + " .xaxis")
-                .attr("class", "xaxis")
-                .call(xAxis);
+//            d3.selectAll(to_select + " .xaxis")
+//                .attr("class", "xaxis")
+//                .call(xAxis);
         }
 
         // event definition for mousing over a term
