@@ -575,9 +575,9 @@ var LDAvis = function(to_select, data_or_file_name, color1, color2) {
             .tickSize(0)
             .ticks(6);
 
-//        chart.append("g")
-//          .attr("x", "xaxis")
-//          .call(xAxis);
+        chart.append("g")
+          .attr("x", "xaxis")
+          .call(xAxis);
 
         // dynamically create the topic and lambda input forms at the top of the page:
         function init_forms(topicID, lambdaID, visID) {
@@ -722,8 +722,13 @@ var LDAvis = function(to_select, data_or_file_name, color1, color2) {
                 .rangeRound([0, barheight])
                 .padding(0.15);
 
+// I CHANGED THIS. Created dat_D and changed .domain arg from dat3 to dat_D
+// to keep the scale of the x axis the same across all Topics
+            var dat_D = lamData.filter(function(d) {
+                return d.Category == "Default";
+            });
             var x = d3.scaleLinear()
-                .domain([1, d3.max(dat3, function(d) {
+                .domain([1, d3.max(dat_D, function(d) {
                     return d.Total;
                 })])
                 .range([0, barwidth])
@@ -882,7 +887,7 @@ var LDAvis = function(to_select, data_or_file_name, color1, color2) {
                     .remove();
                 // https://github.com/mbostock/d3/wiki/Transitions#wiki-d3_ease
                 newaxis.transition().duration(duration)
-//                    .call(xAxis)
+                    .call(xAxis)
                     .transition().duration(duration);
             } else {
                 graybarsEnter
@@ -954,8 +959,8 @@ var LDAvis = function(to_select, data_or_file_name, color1, color2) {
 
                 // https://github.com/mbostock/d3/wiki/Transitions#wiki-d3_ease
                 newaxis.transition().duration(duration)
-                    .transition().duration(duration);
-//                    .call(xAxis);
+                    .transition().duration(duration)
+                    .call(xAxis);
             }
         }
 
@@ -1014,8 +1019,13 @@ var LDAvis = function(to_select, data_or_file_name, color1, color2) {
                 .rangeRound([0, barheight])
                 .padding(0.1);
 
+// I CHANGED THIS. Created dat_D and changed .domain arg from dat3 to dat_D
+// to keep the scale of the x axis the same across all Topics
+            var dat_D = lamData.filter(function(d) {
+                return d.Category == "Default";
+            });
             var x = d3.scaleLinear()
-                .domain([1, d3.max(dat3, function(d) {
+                .domain([1, d3.max(dat_D, function(d) {
                     return d.Total;
                 })])
                 .range([0, barwidth])
@@ -1076,8 +1086,8 @@ var LDAvis = function(to_select, data_or_file_name, color1, color2) {
                 .ticks(6);
 
             // redraw x-axis
-//            d3.selectAll(to_select + " .xaxis")
-//                .call(xAxis);
+            d3.selectAll(to_select + " .xaxis")
+                .call(xAxis);
         }
 
 
@@ -1148,9 +1158,9 @@ var LDAvis = function(to_select, data_or_file_name, color1, color2) {
                 .ticks(6);
 
             // redraw x-axis
-//            d3.selectAll(to_select + " .xaxis")
-//                .attr("class", "xaxis")
-//                .call(xAxis);
+            d3.selectAll(to_select + " .xaxis")
+                .attr("class", "xaxis")
+                .call(xAxis);
         }
 
         // event definition for mousing over a term
